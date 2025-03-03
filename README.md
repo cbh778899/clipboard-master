@@ -3,7 +3,7 @@ Help you to share screenshots on multiple devices through LAN.
 
 ## Build & Run
 
-### install dependencies
+### Install dependencies
 Run following commands to install dependencies for both backend and frontend:
 
 ```sh
@@ -11,6 +11,13 @@ pnpm run install
 cd frontend
 pnpm run install
 ```
+
+### Secure Connection
+To make sure this app works properly on LAN, it requires SSL certificate.  
+To create a self-signed certificate, run `generate-cert.sh`, it will generate private key and certificate files in `cert` folder.
+
+> [!WARN]  
+> Self-signed certificate will not be recognized by browsers by default, please choose to still access according what browser you are using. If you are just using it in LAN, the certificate can be considered secure. The author won't be responsible for any security issues caused by using this application.
 
 ### Development
 Open 2 terminals and run following commands seprately:
@@ -27,14 +34,17 @@ pnpm run dev
 
 And follow the frontend side instruction to open the url in your browser ([http://localhost:5173](http://localhost:5173) by default.)
 
+> [!WARN]  
+> As development environment are not under https, it will only work for your development device. Please see `Production` section to host it on your LAN.
+
 ### Production
-Run following commands to install dependencies, build and run app:
+Run following commands to build and run the application:
 ```sh
 pnpm run build
 pnpm run start
 ```
 
-And open [http://localhost:3000](http://localhost:3000) in your browser.
+And open [https://localhost:3000](https://localhost:3000) in your browser (If you haven't done generate certificates, please go to [http://localhost:3000](http://localhost:3000), and this application will only particially works on your LAN).
 
 > [!NOTE]  
 > If you've changed PORT and/or HOST in `.env` file, please go to corresponding URL instead.
