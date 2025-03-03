@@ -19,20 +19,10 @@ function App() {
 
     return (
         <div className="main">
-            {
-                files && files.length ? 
-                
-                <>
-                <MultiFunction />
-                {files.map((uuid) => {
-                    return <Image key={uuid} uuid={uuid} />
-                })}
-                </> :
-
-                <div className="empty">
-                    Paste An Image to Start
-                </div>
-            }
+            <MultiFunction />
+            {(files ?? []).map((uuid) => {
+                return <Image key={uuid} uuid={uuid} />
+            })}
         </div>
     )
 }

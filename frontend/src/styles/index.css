@@ -43,15 +43,6 @@ body {
     padding: 30px;
 }
 
-.main > .empty {
-    width: 100%;
-    height: calc(100dvh - 60px);
-    align-content: center;
-    text-align: center;
-    font-size: 1.3em;
-    color: gray;
-}
-
 .main > .block {
     display: flex;
     align-items: center;
