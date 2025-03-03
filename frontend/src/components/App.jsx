@@ -2,6 +2,7 @@ import Image from "./Image";
 import useSocket, { closeWsClient, initClient } from "../hooks/useSocket";
 import { useEffect } from "react";
 import { watchPasteImageEvent } from "../utils/tools";
+import MultiFunction from "./MultiFunction";
 
 function App() {
 
@@ -21,9 +22,12 @@ function App() {
             {
                 files && files.length ? 
                 
-                files.map((uuid) => {
+                <>
+                <MultiFunction />
+                {files.map((uuid) => {
                     return <Image key={uuid} uuid={uuid} />
-                }) :
+                })}
+                </> :
 
                 <div className="empty">
                     Paste An Image to Start

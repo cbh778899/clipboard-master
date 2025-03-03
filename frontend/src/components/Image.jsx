@@ -20,7 +20,7 @@ function Image({ uuid }) {
 
     return (
         <div 
-            className='img-container clickable'
+            className='block clickable'
             onClick={copyImgToClipboard}
         >
             <img

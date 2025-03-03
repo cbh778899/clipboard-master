@@ -35,7 +35,7 @@ pnpm run dev
 And follow the frontend side instruction to open the url in your browser ([http://localhost:5173](http://localhost:5173) by default.)
 
 > [!WARN]  
-> As development environment are not under https, it will only work for your development device. Please see `Production` section to host it on your LAN.
+> As development environment are not under https, some functions will only work for your development device. Please see `Production` section to host it on your LAN.
 
 ### Production
 Run following commands to build and run the application:
@@ -63,7 +63,7 @@ Max 30 latest images are listed on page by default, but you can change this beha
 All data stores in `files.db` and all images stores in `uploads/` by default, but you can change this behaviour by editing [.env](./.env) file.
 
 ## Routes
-Frontend will connect to `http://localhost:3000/api` under development environment and `/api` for production (i.e. after run command `pnpm run build`), but you can change this behaviour by editing [frontend/.env](./frontend/.env) file.
+Frontend will connect to `https://localhost:3000/api` under development environment and `/api` for production (i.e. after run command `pnpm run build`), but you can change this behaviour by editing [frontend/.env](./frontend/.env) file.
 
 ## Future works
 * Add button to paste
