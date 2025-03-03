@@ -3,6 +3,7 @@ import { getWsRoute } from "../utils/requests";
 import { loadFileToCache } from "./useCache";
 
 let wsClient;
+let firstConnect = true;
 
 const valuesStore = {};
 const components = {};
@@ -29,7 +30,7 @@ export function sendMessage(action, data) {
 }
 
 export function closeWsClient() {
-    if (!wsClient || wsClient.readyState !== WebSocket.OPEN) return;
+    if (!wsClient || wsClient.readyState === WebSocket.CONNECTING) return;
     wsClient.close();
     wsClient = null;
 }
@@ -68,14 +69,17 @@ function handleActions(action, data) {
 }
 
 export function initClient() {
-    const wsRoute = getWsRoute();
-
     if (!wsClient) {
-        wsClient = new WebSocket(wsRoute);
+        wsClient = new WebSocket(getWsRoute());
+    } else {
+        return;
     }
 
+
     wsClient.onopen = () => {
-        sendMessage('req-sync');
+        console.log('ws opened');
+        firstConnect && sendMessage('req-sync');
+        firstConnect = false;
     }
 
     wsClient.onmessage = (event) => {
@@ -86,6 +90,7 @@ export function initClient() {
     wsClient.onclose = () => {
         console.log('ws closed');
         closeWsClient();
+        setTimeout(initClient, 10);
     }
 
     wsClient.onerror = (error) => {
