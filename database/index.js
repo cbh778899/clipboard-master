@@ -6,7 +6,7 @@ let db;
 const init = () => {
     return new Promise(resolve=>{
         // init database connection
-        db = new sqlite3.Database('files.db', (err) => {
+        db = new sqlite3.Database(process.env.DATABASE_PATH || 'files.db', (err) => {
             if (err) {
                 console.error(err.message);
                 resolve(false);
@@ -59,7 +59,7 @@ const getFileByUUID = (uuid) => {
 }
 const getFiles = () => {
     return new Promise(resolve=>{
-        db.all(`SELECT * FROM files ORDER BY createdAt DESC LIMIT 30`, [], (err, rows) => {
+        db.all(`SELECT * FROM files ORDER BY createdAt DESC LIMIT ${process.env.LIST_LIMIT || '30'}`, [], (err, rows) => {
             if (err) {
                 console.error(err.message);
                 resolve([]);

@@ -1,4 +1,8 @@
-const baseRoute = import.meta.env.DEV ? 'http://localhost:3000/api' : '/api'
+const baseRoute = 
+    import.meta.env.DEV ? 
+    import.meta.env.VITE_DEV_BASE_ROUTE || 'http://localhost:3000/api' : 
+    import.meta.env.VITE_PROD_BASE_ROUTE || '/api';
+
 
 export function generateRequestRoute(route) {
     return `${baseRoute}${route.startsWith('/') ? '' : '/'}${route}`;
