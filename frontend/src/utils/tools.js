@@ -1,3 +1,4 @@
+import { getFileBlob } from "../hooks/useCache";
 import { generateRequestRoute } from "./requests";
 
 function getExtensionFromMimeType(mimeType) {
@@ -13,8 +14,6 @@ function getExtensionFromMimeType(mimeType) {
             return 'webp';
         case 'image/bmp':
             return 'bmp';
-        default:
-            return 'png';
     }
 }
 
@@ -57,7 +56,7 @@ export function watchDropEvent(event) {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         if (file.type.startsWith('image/')) {
-            const ext = file.name.split('.').pop();
+            const ext = getExtensionFromMimeType(file.type);
             uploadFile(file, ext);
         }
     }
@@ -74,4 +73,41 @@ export async function readFromClipboard() {
             }
         }
     }
+}
+
+export async function copyImage(uuid, objURL) {
+    const blob = getFileBlob(uuid);
+    if (!blob) {
+        return;
+    }
+
+    let copyObj = blob;
+
+    if (getExtensionFromMimeType(blob.type) !== 'png') {
+        const pngBlob = await new Promise(resolve=>{
+            const img = new Image();
+            img.src = objURL;
+            img.onload = () => {
+                const width = img.naturalWidth;
+                const height = img.naturalHeight;
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                canvas.toBlob(blob => {
+                    resolve(blob)
+                    canvas.remove();
+                    img.remove();
+                }, 'image/png')
+            }
+        })
+        copyObj = pngBlob;
+    }
+
+    navigator.clipboard.write([
+        new ClipboardItem({
+            [copyObj.type]: copyObj
+        })
+    ]);
 }
