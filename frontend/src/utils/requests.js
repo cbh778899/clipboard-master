@@ -1,11 +1,21 @@
 const baseRoute = 
     import.meta.env.DEV ? 
-    import.meta.env.VITE_DEV_BASE_ROUTE || 'http://localhost:3000/api' : 
+    import.meta.env.VITE_DEV_BASE_ROUTE || 'https://localhost:3000/api' : 
     import.meta.env.VITE_PROD_BASE_ROUTE || '/api';
 
 
 export function generateRequestRoute(route) {
     return `${baseRoute}${route.startsWith('/') ? '' : '/'}${route}`;
+}
+
+export function getWsRoute() {
+    let ws_base_route = baseRoute;
+
+    if (baseRoute.startsWith('http')) {
+        ws_base_route = baseRoute.replace('http', 'ws');
+    }
+    
+    return `${ws_base_route}/ws`;
 }
 
 /**

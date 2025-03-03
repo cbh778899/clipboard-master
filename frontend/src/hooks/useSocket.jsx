@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { generateRequestRoute } from "../utils/requests";
+import { getWsRoute } from "../utils/requests";
 import { loadFileToCache } from "./useCache";
 
 let wsClient;
@@ -68,7 +68,7 @@ function handleActions(action, data) {
 }
 
 export function initClient() {
-    const wsRoute = generateRequestRoute('ws');
+    const wsRoute = getWsRoute();
 
     if (!wsClient) {
         wsClient = new WebSocket(wsRoute);
