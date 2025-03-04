@@ -1,16 +1,16 @@
 import c from 'classnames'
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { readFromClipboard, watchDropEvent } from '../utils/tools';
 
 function MultiFunction() {
 
     const [ isDragOver, setIsDragOver ] = useState(false);
 
-    function handleDrop(event) {
+    const handleDrop = useCallback((event) => {
         event.preventDefault();
         setIsDragOver(false);
         watchDropEvent(event);
-    }
+    }, []);
 
     return (
         <div 
@@ -28,4 +28,4 @@ function MultiFunction() {
     )
 }
 
-export default MultiFunction;
+export default memo(MultiFunction);

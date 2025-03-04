@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import useCache from '../hooks/useCache';
 import { copyImage } from '../utils/tools';
+import { memo } from 'react';
 
 function Image({ uuid }) {
 
@@ -22,4 +23,4 @@ Image.propTypes = {
     uuid: PropTypes.string.isRequired,
 }
 
-export default Image;
+export default memo(Image);
