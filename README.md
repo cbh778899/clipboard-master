@@ -51,13 +51,14 @@ And open [https://localhost:3000](https://localhost:3000) in your browser (If yo
 
 ## Usage
 
-Make sure your app is running, open corresponding URL in your browser and Simply paste (`CTRL + V` on Windows/Linux or `COMMAND + V` on MacOS) your screenshot inside browser page to see the shared screenshots. All devices connected to the URL can those screenshots. 
-
-Simply click on the image you want to copy it.
-
-Max 30 latest images are listed on page by default, but you can change this behaviour by changing `LIST_LIMIT` in [.env](./.env) file.
-
-> More ways of pasting are coming.
+There are 3 ways to upload an image:
+1. Use keyboard shortcut for pasting: `CTRL+V` on Windows machines or `CMD+V` on MacOS machines. This will upload the image in your clipboard.
+2. Drag and drop your image to the multi-function button at the very first beginning of the page.
+3. Click the multi-function button and follow your browser's instruction for pasting, this will also read the image from your clipboard.
+  
+To copy an image, simply click the one you want, the image will automatically paste into your clipboard.  
+  
+To delete an image, drag it on the page and drop it in the multi-function button, the deletion can be seen on every device.
 
 ## Data storage
 All data stores in `files.db` and all images stores in `uploads/` by default, but you can change this behaviour by editing [.env](./.env) file.
@@ -67,4 +68,3 @@ Frontend will connect to `https://localhost:3000/api` under development environm
 
 ## Future works
 * Copy/Paste texts
-* Delete an item
