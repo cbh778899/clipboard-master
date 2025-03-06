@@ -42,6 +42,14 @@ export async function loadFileToCache(uuid) {
     }
 }
 
+export function deleteFileFromCache(uuid) {
+    if (objURLs[uuid]) {
+        URL.revokeObjectURL(objURLs[uuid]);
+        delete objURLs[uuid];
+        updateAll(uuid);
+    }
+}
+
 export default function useCache(uuid) {
     const [ cachedFileURL, setCachedFile ] = useState(objURLs[uuid]);
 

@@ -14,7 +14,7 @@ const bodyParserJSON = require('body-parser').json();
 
 require('./database').init();
 
-const { upload, get } = require('./actions/files');
+const { upload, get, deleteItem } = require('./actions/files');
 const middleware = require('./utils/multer-config');
 
 const FILE_SAVE_PATH = process.env.FILE_SAVE_PATH || 'uploads/';
@@ -41,6 +41,7 @@ if (secureConnection) {
 const filesRouter = express.Router();
 filesRouter.post('/upload', middleware, upload);
 filesRouter.get('/', bodyParserJSON, get);
+filesRouter.delete('/:uuid', bodyParserJSON, deleteItem);
 
 // ===========================================
 // Websocket

@@ -1,5 +1,5 @@
 import { getFileBlob } from "../hooks/useCache";
-import { generateRequestRoute } from "./requests";
+import requests, { generateRequestRoute } from "./requests";
 
 function getExtensionFromMimeType(mimeType) {
     switch (mimeType) {
@@ -39,6 +39,16 @@ async function uploadFile(blob, ext) {
     }
 }
 
+export async function deleteFile(uuid) {
+    const response = await requests(`files/${uuid}`, {
+        method: 'DELETE'
+    })
+
+    if (response.error) {
+        console.error(response.error);
+    }
+}
+
 export function watchPasteImageEvent(event) {
     const items = (event.clipboardData || event.originalEvent.clipboardData).items;
     for (let index in items) {
@@ -51,7 +61,7 @@ export function watchPasteImageEvent(event) {
     }
 }
 
-export function watchDropEvent(event) {
+export function handleDropFile(event) {
     const files = event.dataTransfer.files;
     for (let i = 0; i < files.length; i++) {
         const file = files[i];

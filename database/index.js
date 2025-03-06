@@ -69,6 +69,18 @@ const getFiles = () => {
     })
 }
 
+const deleteItemByUUID = (uuid) => {
+    return new Promise((resolve) => {
+        db.get("DELETE FROM files WHERE uuid = ? RETURNING *", [uuid], (err, row) => {
+            if (err) {
+                console.error(err.message);
+                return resolve(null);
+            }
+            resolve(row);
+        });
+    });
+};
+
 module.exports = {
-    init, getFileByUUID, recordFile, getFiles
+    init, getFileByUUID, recordFile, getFiles, deleteItemByUUID
 }

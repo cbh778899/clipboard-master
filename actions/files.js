@@ -1,5 +1,5 @@
-const { getFileByUUID, recordFile } = require('../database');
-const { getFilePath } = require('../utils/files');
+const { getFileByUUID, recordFile, deleteItemByUUID } = require('../database');
+const { getFilePath, deleteFile } = require('../utils/files');
 const { sendToAllClients } = require('./ws')
 
 const upload = async (req, res) => {
@@ -28,6 +28,18 @@ const get = async (req, res) => {
     return res.sendFile(getFilePath(filename));
 }
 
+const deleteItem = async (req, res) => {
+    const { uuid } = req.params;
+    const result = await deleteItemByUUID(uuid);
+    if (result) {
+        deleteFile(result.filename);
+        sendToAllClients('removed', { uuid })
+        return res.status(200).json({ message: 'File deleted successfully' });
+    } else {
+        return res.status(500).json({ message: 'Failed to delete file' });
+    }
+}
+
 module.exports = {
-    upload, get
+    upload, get, deleteItem
 }

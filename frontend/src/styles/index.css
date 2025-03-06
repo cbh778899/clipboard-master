@@ -59,23 +59,31 @@ body {
     transition-duration: .3s;
 }
 .main > .block.multi-function::after {
-    content: "Click or Drag Image to Upload";
+    content: "Click or drag image to upload, or drag existing image here to delete";
     width: 100%;
     height: 100%;
     align-content: center;
     text-align: center;
     font-size: 1.3em;
+    padding: 10px;
 }
 
 .main > .block.multi-function:hover {
     color: gray;
     background-color: rgba(0, 0, 0, 0.05);
 }
+.main > .block.multi-function.dragover.deleting {
+    color: red;
+    background-color: rgba(255, 0, 0, 0.05);
+}
 .main > .block.multi-function:hover::after {
     content: "Click to paste from your clipboard";
 }
 .main > .block.multi-function.dragover::after {
     content: "Drop to upload this file";
+}
+.main > .block.multi-function.dragover.deleting::after {
+    content: "Drop to delete this file";
 }
 
 .main > .block > img {

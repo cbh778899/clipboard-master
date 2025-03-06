@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getWsRoute } from "../utils/requests";
-import { loadFileToCache } from "./useCache";
+import { deleteFileFromCache, loadFileToCache } from "./useCache";
 
 let wsClient;
 let firstConnect = true;
@@ -53,6 +53,12 @@ async function handleSync({ files }) {
     updateAll('files');
 }
 
+async function handleRemoved({ uuid }) {
+    valuesStore.files = valuesStore.files.filter(e=>e !== uuid);
+    updateAll('files');
+    deleteFileFromCache(uuid);
+}
+
 function handleActions(action, data) {
     switch(action) {
         case 'updated':
@@ -60,6 +66,9 @@ function handleActions(action, data) {
             break;
         case 'sync':
             handleSync(data);
+            break;
+        case 'removed':
+            handleRemoved(data);
             break;
         default:
             valuesStore[action] = data;
