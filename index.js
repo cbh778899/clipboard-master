@@ -61,8 +61,12 @@ app.get('*', (_, res)=>{
 // ===========================================
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
+const { getLocalIP } = require("./utils/tools");
 
 const serverInstance = server || app;
 serverInstance.listen(PORT, HOST, ()=>{
-    console.log(`Server is running on http${secureConnection ? 's' : ''}://localhost:${PORT}`);
+    console.log(
+`Server is running on http${secureConnection ? 's' : ''}://localhost:${PORT}
+Find your application on LAN: http${secureConnection ? 's' : ''}://${getLocalIP()}:${PORT}`
+);
 });
