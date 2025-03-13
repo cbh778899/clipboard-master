@@ -4,6 +4,7 @@ import { deleteFileFromCache, loadFileToCache } from "./useCache";
 
 let wsClient;
 let firstConnect = true;
+let sessionId = '';
 
 const valuesStore = {};
 const components = {};
@@ -70,6 +71,9 @@ function handleActions(action, data) {
         case 'removed':
             handleRemoved(data);
             break;
+        case 'update-id':
+            sessionId = data.sessionId;
+            break;
         default:
             valuesStore[action] = data;
             updateAll(action);
@@ -87,8 +91,12 @@ export function initClient() {
 
     wsClient.onopen = () => {
         console.log('ws opened');
-        firstConnect && sendMessage('req-sync');
-        firstConnect = false;
+        if (firstConnect) {
+            sendMessage('connect');
+            firstConnect = false;
+        } else {
+            sendMessage('reconnect', { sessionId });
+        }
     }
 
     wsClient.onmessage = (event) => {

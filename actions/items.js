@@ -1,7 +1,7 @@
 const { getFilePath, deleteFile } = require('../utils/files');
 const { addItem, getItem, removeItem } = require('../utils/items-store');
 const { getTypeFromExt } = require('../utils/tools');
-const { sendToAllClients } = require('./ws')
+const { sendUpdated, sendRemoved } = require('./ws')
 
 const upload = (req, res) => {
     const { file } = req;
@@ -13,7 +13,7 @@ const upload = (req, res) => {
     if (!uuid) {
         return res.status(500).json({ message: 'Failed to save file' });
     } else {
-        sendToAllClients('updated', { uuid, type })
+        sendUpdated(uuid, type);
         return res.status(200).json({ uuid });
     }
 }
@@ -39,7 +39,7 @@ const deleteItem = (req, res) => {
     const result = removeItem(uuid);
     if (result) {
         deleteFile(result.filename);
-        sendToAllClients('removed', { uuid })
+        sendRemoved(uuid);
         return res.status(200).json({ success: true });
     } else {
         return res.status(500).json( { success: false } );
