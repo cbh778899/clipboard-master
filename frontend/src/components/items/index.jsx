@@ -11,15 +11,10 @@ function Item({ uuid, type }) {
         e.dataTransfer.setData('to-remove', uuid);
     }, [uuid])
 
-    const onDragEnd = useCallback(e => {
-        e.dataTransfer.clearData('to-remove');
-    }, [])
-
     return (
         <div 
             className='block clickable'
             onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
             draggable
         >
             {
