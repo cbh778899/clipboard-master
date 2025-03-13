@@ -7,12 +7,13 @@ const storage = multer.diskStorage({
         cb(null, process.env.FILE_SAVE_PATH || 'uploads/')
     },
     filename: function(req, file, cb) {
-        let filename = `${Date.now()}-${file.originalname}`
+        const decode_name = Buffer.from(file.originalname, 'latin1').toString('utf8');
+        let filename = `${Date.now()}-${decode_name}`
         if (
-            !/^.*\.(png|jpg|jpg|gif|webp|svg|bmp|tiff|ico|txt)$/.test(file.originalname) && 
-            !existsSync(getFilePath(file.originalname))
+            !/^.*\.(png|jpg|jpg|gif|webp|svg|bmp|tiff|ico|txt)$/.test(decode_name) && 
+            !existsSync(getFilePath(decode_name))
         ) {
-            filename = file.originalname;
+            filename = decode_name;
         }
         cb(null, filename);
     }
