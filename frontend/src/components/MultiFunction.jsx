@@ -10,7 +10,7 @@ function MultiFunction() {
     const handleDrop = useCallback((event) => {
         event.preventDefault();
 
-        const removeUUID = event.dataTransfer.getData('data-to-remove');
+        const removeUUID = event.dataTransfer.getData('to-remove');
         if (removeUUID) {
             deleteFile(removeUUID);
         } else {
@@ -23,7 +23,7 @@ function MultiFunction() {
 
     const onDragOver = useCallback((e) => {
         e.preventDefault();
-        setIsDelete(e.dataTransfer.types.includes('data-to-remove'));
+        setIsDelete(e.dataTransfer.types.includes('to-remove'));
         setIsDragOver(true);
     }, [])
 
