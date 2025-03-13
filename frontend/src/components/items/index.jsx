@@ -1,25 +1,15 @@
 import propTypes from 'prop-types'
 import Image from './Image'
 import Text from './Text';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import File from './File';
 
 function Item({ uuid, type }) {
 
-    const onDragStart = useCallback(e => {
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('to-remove', uuid);
-    }, [uuid])
-
-    const onDragEnd = useCallback(e => {
-        e.dataTransfer.clearData('to-remove');
-    }, [])
-
     return (
         <div 
             className='block clickable'
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
+            data-to-remove={uuid}
             draggable
         >
             {
