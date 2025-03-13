@@ -1,9 +1,5 @@
 const os = require('os');
 
-const randomId = () => {
-    return Math.random().toString(36).slice(2);
-}
-
 const getLocalIP = () => {
     const interfaces = os.networkInterfaces();
     for (const name of Object.keys(interfaces)) {
@@ -16,7 +12,18 @@ const getLocalIP = () => {
     return '127.0.0.1';
 }
 
+const getTypeFromExt = (filename) => {
+    filename = filename.toLowerCase();
+    if (/^.*\.(jpg|jpeg|png|gif|webp|bmp|tiff|svg)$/.test(filename)) {
+        return 'image';
+    } else if (/^.*\.(txt|csv|html|js|xml|css|md)$/.test(filename)) {
+        return 'text';
+    } else {
+        return 'file';
+    }
+}
+
 module.exports = {
-    randomId,
-    getLocalIP
+    getLocalIP,
+    getTypeFromExt
 }

@@ -1,12 +1,12 @@
-import Image from "./Image";
 import useSocket, { closeWsClient, initClient } from "../hooks/useSocket";
 import { useEffect } from "react";
 import { watchPasteImageEvent } from "../utils/tools";
 import MultiFunction from "./MultiFunction";
+import Item from "./items";
 
 function App() {
 
-    const files = useSocket('files');
+    const items = useSocket('items');
 
     useEffect(()=>{
         initClient();
@@ -20,8 +20,8 @@ function App() {
     return (
         <div className="main">
             <MultiFunction />
-            {(files ?? []).map((uuid) => {
-                return <Image key={uuid} uuid={uuid} />
+            {(items ?? []).map(({uuid, type}) => {
+                return <Item key={uuid} uuid={uuid} type={type} />
             })}
         </div>
     )

@@ -1,14 +1,20 @@
-const path = require('path');
 const multer = require('multer');
-const { randomId } = require('./tools');
+const { existsSync } = require('fs');
+const { getFilePath } = require('./files');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, process.env.FILE_SAVE_PATH || 'uploads/') // Files will be stored in 'uploads' directory
+        cb(null, process.env.FILE_SAVE_PATH || 'uploads/')
     },
     filename: function(req, file, cb) {
-        // Create unique filename with original extension
-        cb(null, `${randomId()}-${Date.now()}${path.extname(file.originalname)}`);
+        let filename = `${Date.now()}-${file.originalname}`
+        if (
+            !/^.*\.(png|jpg|jpg|gif|webp|svg|bmp|tiff|ico|txt)$/.test(file.originalname) && 
+            !existsSync(getFilePath(file.originalname))
+        ) {
+            filename = file.originalname;
+        }
+        cb(null, filename);
     }
 });
 

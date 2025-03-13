@@ -2,6 +2,7 @@
 // CLIENTS
 
 const { readFiles } = require("../utils/files");
+const { getItems } = require("../utils/items-store");
 
 // ===========================================
 const clients = [];
@@ -24,8 +25,8 @@ function sendToAllClients(action, messages) {
 // ACTIONS
 // ===========================================
 
-async function syncAction(client) {
-    sendToClient(client, 'sync', { files: await readFiles() });
+function syncAction(client) {
+    sendToClient(client, 'sync', { items: getItems() });
 }
 
 function handleActions(client, action, data) {

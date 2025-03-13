@@ -52,6 +52,12 @@ body {
     overflow: hidden;
 }
 
+.main > .block:has(.text),
+.main > .block:has(.file-download-link) {
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
 .main > .block.multi-function {
     color: lightgray;
     border: 4px dashed;
@@ -80,10 +86,10 @@ body {
     content: "Click to paste from your clipboard";
 }
 .main > .block.multi-function.dragover::after {
-    content: "Drop to upload this file";
+    content: "Drop to upload";
 }
 .main > .block.multi-function.dragover.deleting::after {
-    content: "Drop to delete this file";
+    content: "Drop to delete";
 }
 
 .main > .block > img {
@@ -95,6 +101,28 @@ body {
     transition-duration: .3s;
 }
 
+.main > .block > .text,
+.main > .block > .file-download-link {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    align-content: center;
+    padding: 10px;
+}
+
+.main > .block > .file-download-link {
+    text-align: center;
+    text-decoration: none;
+}
+
+.main > .block > .file-download-link > .instruction {
+    margin-bottom: 10px;
+    color: black;
+}
+.main > .block > .file-download-link > .filename {
+    color: blue;
+}
+
 .main > .block:hover {
     overflow: visible;
     z-index: 2;
@@ -102,4 +130,8 @@ body {
 .main > .block:hover img {
     transform: scale(1.3);
     border-radius: unset;
+}
+
+.main > .block:hover > .file-download-link > .filename {
+    text-decoration: underline;
 }

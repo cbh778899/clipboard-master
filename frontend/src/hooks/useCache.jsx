@@ -15,8 +15,8 @@ export function getFileBlob(uuid) {
     return blobs[uuid];
 }
 
-export async function loadFileToCache(uuid) {
-    if (objURLs[uuid]) {
+export async function loadFileToCache(uuid, type) {
+    if (objURLs[uuid] || type !== 'image') {
         return true;
     }
     if (blobs[uuid]) {
@@ -25,7 +25,7 @@ export async function loadFileToCache(uuid) {
         return true;
     }
     try {
-        const response = await requests(`files?uuid=${uuid}`, {}, { jsonResponse: false });
+        const response = await requests(`items/file?uuid=${uuid}`, {}, { jsonResponse: false });
         if (!response.ok) {
             console.error('Error loading file to cache:', response.status);
             return false;

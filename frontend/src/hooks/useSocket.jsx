@@ -35,27 +35,27 @@ export function closeWsClient() {
     wsClient = null;
 }
 
-async function handleUpdated({ uuid }) {
-    await loadFileToCache(uuid);
+async function handleUpdated({ uuid, type }) {
+    await loadFileToCache(uuid, type);
     
-    if (!valuesStore.files.includes(uuid)) {
-        valuesStore.files = [uuid, ...valuesStore.files];
+    if (!valuesStore.items.some(file => file.uuid === uuid)) {
+        valuesStore.items = [{uuid, type}, ...valuesStore.items];
     }
-    updateAll('files');
+    updateAll('items');
 }
 
-async function handleSync({ files }) {
-    for await (const uuid of files) {
-        await loadFileToCache(uuid);
+async function handleSync({ items }) {
+    for await (const {uuid, type} of items) {
+        await loadFileToCache(uuid, type);
     }
 
-    valuesStore.files = (valuesStore.files ?? []).concat(files)
-    updateAll('files');
+    valuesStore.items = (valuesStore.items ?? []).concat(items)
+    updateAll('items');
 }
 
 async function handleRemoved({ uuid }) {
-    valuesStore.files = valuesStore.files.filter(e=>e !== uuid);
-    updateAll('files');
+    valuesStore.items = valuesStore.items.filter(e=>e.uuid !== uuid);
+    updateAll('items');
     deleteFileFromCache(uuid);
 }
 

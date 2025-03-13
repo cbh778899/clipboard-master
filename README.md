@@ -56,15 +56,18 @@ There are 3 ways to upload an image:
 2. Drag and drop your image to the multi-function button at the very first beginning of the page.
 3. Click the multi-function button and follow your browser's instruction for pasting, this will also read the image from your clipboard.
   
-To copy an image, simply click the one you want, the image will automatically paste into your clipboard.  
+To copy an item, simply click the one you want, the item will automatically paste into your clipboard.  
   
-To delete an image, drag it on the page and drop it in the multi-function button, the deletion can be seen on every device.
+To delete an item, drag it on the page and drop it in the multi-function button, the deletion can be seen on every device.
+
+* Directly paste can now upload text & image.
+* Drag and drop can now upload images and files.
+* Click on the multi-function button now support upload text & image.
+* If you uploaded a file, click it will start download instead of copy.
+* Click on a GIF will download it instead of copy.
 
 ## Data storage
 All data stores in `files.db` and all images stores in `uploads/` by default, but you can change this behaviour by editing [.env](./.env) file.
 
 ## Routes
 Frontend will connect to `https://localhost:3000/api` under development environment and `/api` for production (i.e. after run command `pnpm run build`), but you can change this behaviour by editing [frontend/.env](./frontend/.env) file.
-
-## Future works
-* Copy/Paste texts
