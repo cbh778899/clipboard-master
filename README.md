@@ -24,7 +24,7 @@ This will create a directory called `cert` and have certification generated insi
 > If you are using Windows and have `git` installed, you should can find it in `<your-git-install-path>\mingw64\bin`.  
 > Add this path to your `PATH` environment variable to make sure the command works normally.
 
-> [!WARN]  
+> [!WARNING]  
 > Self-signed certificate will not be recognized by browsers by default, please choose to still access according what browser you are using. If you are just using it in LAN, the certificate can be considered secure. The author won't be responsible for any security issues caused by using this application.
 
 ### Development
