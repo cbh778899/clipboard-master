@@ -42,7 +42,7 @@ pnpm run dev
 
 And follow the frontend side instruction to open the url in your browser ([http://localhost:5173](http://localhost:5173) by default.)
 
-> [!WARN]  
+> [!WARNING]  
 > As development environment are not under https, some functions will only work for your development device. Please see `Production` section to host it on your LAN.
 
 ### Production
