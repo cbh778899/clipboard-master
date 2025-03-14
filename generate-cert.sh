@@ -1,1 +1,0 @@
-mkdir -p cert && openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert/private.key -out cert/certificate.crt -subj "/CN=localhost"
