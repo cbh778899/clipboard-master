@@ -24,11 +24,11 @@ const { existsSync, readFileSync } = require('fs');
 
 // init https settings if applicable
 let server = null;
-const secureConnection = existsSync('cert');
+const secureConnection = existsSync(join(__dirname, '..', 'cert'));
 if (secureConnection) {
     server = https.createServer({
-        key: readFileSync(join(__dirname, 'cert', 'private.key')),
-        cert: readFileSync(join(__dirname, 'cert', 'certificate.crt'))
+        key: readFileSync(join(__dirname, '..', 'cert', 'private.key')),
+        cert: readFileSync(join(__dirname, '..', 'cert', 'certificate.crt'))
     }, app);
     expressWs(app, server);
 } else {
@@ -53,9 +53,9 @@ app.ws('/api/ws', require('./actions/ws').wsHandler)
 // Base routers
 // ===========================================
 app.use('/api/items', itemsRouter);
-app.use(express.static(join(__dirname, 'dist')));
+app.use(express.static(join(__dirname, '..', 'dist')));
 app.get('*', (_, res)=>{
-    res.sendFile(join(__dirname, 'dist', 'index.html'));
+    res.sendFile(join(__dirname, '..', 'dist', 'index.html'));
 })
 
 // ===========================================

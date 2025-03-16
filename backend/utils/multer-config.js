@@ -1,10 +1,11 @@
 const multer = require('multer');
 const { existsSync } = require('fs');
 const { getFilePath } = require('./files');
+const { join } = require('path');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, process.env.FILE_SAVE_PATH || 'uploads/')
+        cb(null, join(__dirname, '..', '..', process.env.FILE_SAVE_PATH || 'uploads/'))
     },
     filename: function(req, file, cb) {
         const decode_name = Buffer.from(file.originalname, 'latin1').toString('utf8');
