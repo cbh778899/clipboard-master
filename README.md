@@ -8,8 +8,6 @@ Run following commands to install dependencies for both backend and frontend:
 
 ```sh
 pnpm run install
-cd frontend
-pnpm run install
 ```
 
 ### Secure Connection
@@ -28,22 +26,20 @@ This will create a directory called `cert` and have certification generated insi
 > Self-signed certificate will not be recognized by browsers by default, please choose to still access according what browser you are using. If you are just using it in LAN, the certificate can be considered secure. The author won't be responsible for any security issues caused by using this application.
 
 ### Development
-Open 2 terminals and run following commands seprately:
 ```sh
-# For Backend
-pnpm run dev
-```
-
-```sh
-# For Frontend
-cd frontend
 pnpm run dev
 ```
 
 And follow the frontend side instruction to open the url in your browser ([http://localhost:5173](http://localhost:5173) by default.)
 
 > [!WARNING]  
-> As development environment are not under https, some functions will only work for your development device. Please see `Production` section to host it on your LAN.
+> As development environment are not under https, some functions will only work for your development device.  
+> Please see `Production` section to host it on your LAN.
+
+> [!NOTE]  
+> When running `dev` command, browsers might refuse to establish secure connection because of the self-signed certificate.  
+> To allow connection, you might want to `build` and `start` and access the backend route (default [https://localhost:3000](https://localhost:3000)),  
+> This will prompt you to choose still access it or not. Allow it and start `dev` again and you are all set.  
 
 ### Production
 Run following commands to build and run the application:
@@ -59,15 +55,16 @@ And open [https://localhost:3000](https://localhost:3000) in your browser (If yo
 
 ## Usage
 
-There are 3 ways to upload an image:
-1. Use keyboard shortcut for pasting: `CTRL+V` on Windows machines or `CMD+V` on MacOS machines. This will upload the image in your clipboard.
-2. Drag and drop your image to the multi-function button at the very first beginning of the page.
-3. Click the multi-function button and follow your browser's instruction for pasting, this will also read the image from your clipboard.
+### Basic
+There are mainly ways to upload an item:
+1. Use keyboard shortcut for pasting: `CTRL+V` on Windows machines or `CMD+V` on MacOS machines. This will upload the images and texts in your clipboard.
+2. Drag and drop your image / file to the multi-function button in the front of the page to upload.
+3. Click the multi-function button and follow your browser's instruction for pasting, this will also read the images and texts from your clipboard.
   
 To copy an item, simply click the one you want, the item will automatically paste into your clipboard.  
-  
 To delete an item, drag it on the page and drop it in the multi-function button, the deletion can be seen on every device.
 
+### Updates
 * Directly paste can now upload text & image.
 * Drag and drop can now upload images and files.
 * Click on the multi-function button now support upload text & image.
@@ -75,7 +72,7 @@ To delete an item, drag it on the page and drop it in the multi-function button,
 * Click on a GIF will download it instead of copy.
 
 ## Data storage
-All data stores in `files.db` and all images stores in `uploads/` by default, but you can change this behaviour by editing [.env](./.env) file.
+All data will be stored at `uploads/` folder in root, but you can change it in [/backend/.env](/backend/.env)
 
 ## Routes
-Frontend will connect to `https://localhost:3000/api` under development environment and `/api` for production (i.e. after run command `pnpm run build`), but you can change this behaviour by editing [frontend/.env](./frontend/.env) file.
+Frontend will connect to `https://localhost:3000/api` under development environment and `/api` for production (i.e. after run command `pnpm run build`), but you can change this behaviour by editing [/frontend/.env](/frontend/.env) file.

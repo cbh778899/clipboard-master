@@ -3,7 +3,7 @@ const { existsSync, mkdirSync, readdirSync, readFileSync, statSync } = require("
 const { randomUUID } = require('crypto');
 const { getTypeFromExt } = require('./tools');
 
-const FILE_SAVE_PATH = join(__dirname, '..', process.env.FILE_SAVE_PATH || 'uploads/');
+const FILE_SAVE_PATH = join(__dirname, '..', '..', process.env.FILE_SAVE_PATH || 'uploads/');
 
 const store = []
 
