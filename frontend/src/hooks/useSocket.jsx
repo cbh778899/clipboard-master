@@ -8,6 +8,9 @@ let sessionId = '';
 
 const valuesStore = {};
 const components = {};
+const MAX_RETRY = import.meta.env.VITE_MAX_WEBSOCKET_RETRY || -1;
+const RETRY_INTERVAL = import.meta.env.VITE_WEBSOCKET_RETRY_INTERVAL || 100;
+let retryCount = 0;
 
 function updateAll(action) {
     components[action] && components[action].forEach(e => {
@@ -91,6 +94,7 @@ export function initClient() {
 
     wsClient.onopen = () => {
         console.log('ws opened');
+        retryCount = 0;
         if (firstConnect) {
             sendMessage('connect');
             firstConnect = false;
@@ -107,12 +111,14 @@ export function initClient() {
     wsClient.onclose = () => {
         console.log('ws closed');
         closeWsClient();
-        setTimeout(initClient, 10);
     }
 
     wsClient.onerror = (error) => {
         console.log('ws error', error);
         closeWsClient();
+        if (MAX_RETRY === -1 || ++retryCount <= MAX_RETRY) {
+            setTimeout(initClient, RETRY_INTERVAL);
+        }
     }
 }
 

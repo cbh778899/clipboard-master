@@ -72,7 +72,10 @@ To delete an item, drag it on the page and drop it in the multi-function button,
 * Click on a GIF will download it instead of copy.
 
 ## Data storage
-All data will be stored at `uploads/` folder in root, but you can change it in [/backend/.env](/backend/.env)
+All data will be stored at `uploads/` folder in root, but you can change it by editing `FILE_SAVE_PATH` in [/backend/.env](/backend/.env)
+
+## Connection Retry
+Some devices might disconnect when browser switched to backend, therefore retry connection is required. The max retries by default is 3 times and interval is at 100ms, which is enough to determin whether it's the problem of client itself or server (e.g. the server closed). If you want to change this behaviour, change the `VITE_MAX_WEBSOCKET_RETRY` and/or `VITE_WEBSOCKET_RETRY_INTERVAL` entries in [/frontend/.env](/frontend/.env). Deleteing `VITE_MAX_WEBSOCKET_RETRY` will allow infinite retry.
 
 ## Routes
-Frontend will connect to `https://localhost:3000/api` under development environment and `/api` for production (i.e. after run command `pnpm run build`), but you can change this behaviour by editing [/frontend/.env](/frontend/.env) file.
+Frontend will connect to `https://localhost:3000/api` under development environment and `/api` for production (i.e. after run command `pnpm run build`), but you can change this behaviour by editing `VITE_DEV_BASE_ROUTE` and `VITE_PROD_BASE_ROUTE` entries in [/frontend/.env](/frontend/.env) file.
